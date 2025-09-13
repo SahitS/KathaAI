@@ -3,7 +3,7 @@
 git clone https://github.com/SahitS/KathaAI.git
 cd KathaAI
 
-#Backend (Node)
+# Backend (Node)
 create .env from .env.example (if you have one) and fill variables
 cp .env.example .env  # on Windows: copy .env.example .env
 
@@ -13,14 +13,14 @@ run
 npm run dev          # or: node server.js / nodemon
 
 
-#Angular
+# Angular
 cd frontend   # if your Angular app lives in /frontend; else stay in root
 npm ci
 npm run start    # usually runs: ng serve
 then open http://localhost:4200
 
 
-#Python servies AI models
+# Python servies AI models
 cd AI-Models
 python -m venv .venv
 .\.venv\Scripts\activate            # PowerShell
