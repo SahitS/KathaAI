@@ -1,0 +1,87 @@
+<div class="overlay-container"
+     [class.selected]="isSelected"
+     [class.hovered]="isHovered && !isSelected">
+
+  <!-- Arrow pointing to country -->
+  <div *ngIf="isSelected" class="country-arrow">
+    <svg viewBox="0 0 100 100" class="arrow-svg">
+      <path d="M10 50 L80 50 M70 40 L80 50 L70 60"
+            stroke="currentColor"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- Close Button - Only show when selected (clicked), not when hovered -->
+  <button *ngIf="isSelected"
+          class="close-btn"
+          (click)="onCloseClick()"
+          aria-label="Close overlay">
+    <svg viewBox="0 0 24 24" fill="none">
+      <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+      <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </button>
+
+  <!-- Country Header -->
+  <div class="overlay-header">
+    <h3 class="country-name">{{ countryData?.name || 'No Country' }}</h3>
+    <div class="country-stats">
+      <span class="stat-item">
+        <span class="stat-icon">📚</span>
+        {{ countryData?.booksCount || 0 }} Sacred Texts
+      </span>
+      <span class="stat-item">
+        <span class="stat-icon">🗣️</span>
+        {{ countryData?.languages?.length || 0 }} Languages
+      </span>
+    </div>
+  </div>
+
+  <!-- Sacred Books Section -->
+  <div class="sacred-books-section">
+    <h4 class="section-title">Sacred Books & Mythologies</h4>
+    <div class="books-grid">
+      <div *ngFor="let mythology of getDisplayedMythologies()"
+            class="book-card">
+        <div class="mythology-image">
+          <img [src]="mythology.image" [alt]="mythology.name" class="mythology-img">
+        </div>
+        <div class="book-info">
+          <h5 class="book-title">{{ mythology.name }}</h5>
+          <p class="book-description">{{ mythology.description }}</p>
+          <div class="mythology-meta">
+            <span class="era">{{ mythology.era }}</span>
+            <span class="origin">{{ mythology.origin }}</span>
+          </div>
+        </div>
+        <button class="explore-btn" (click)="onExploreMythology(mythology)">Explore</button>
+      </div>
+      
+      <!-- Show More Button - Only show when selected -->
+      <div *ngIf="getRemainingMythologiesCount() > 0 && isSelected"
+            class="show-more-card"
+            (click)="onShowAllMythologies()">
+        <div class="plus-icon">+</div>
+        <div class="more-info">
+          <h5 class="more-count">+{{ getRemainingMythologiesCount() }} more</h5>
+          <p class="more-text">mythologies</p>
+        </div>
+        <button class="view-all-btn">View All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages Section -->
+  <div class="languages-section">
+    <h4 class="section-title">Available Languages</h4>
+    <div class="language-tags">
+      <span *ngFor="let language of countryData?.languages || []"
+            class="language-tag">
+        {{ language }}
+      </span>
+    </div>
+  </div>
+</div>

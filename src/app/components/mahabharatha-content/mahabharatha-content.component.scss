@@ -1,0 +1,457 @@
+// Color Palette
+$primary-bg: #0a0e1a;
+$secondary-bg: #1a1f2e;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$border-color: #334155;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+
+.mahabharatha-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%);
+  padding: 2rem;
+  color: $text-primary;
+
+  // Header
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+
+    .back-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: $accent-color;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.875rem;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: $accent-color;
+        transform: translateX(-2px);
+      }
+
+      .back-icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, $accent-color, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: $text-secondary;
+      margin: 0;
+    }
+  }
+
+  // Loading State
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+
+    .loading-spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 3px solid rgba(59, 130, 246, 0.3);
+      border-top: 3px solid $accent-color;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 1.125rem;
+    }
+  }
+
+  // Error State
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    text-align: center;
+
+    .error-icon {
+      font-size: 3rem;
+    }
+
+    p {
+      color: $danger-color;
+      font-size: 1.125rem;
+    }
+
+    .retry-btn {
+      background: $accent-color;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: $accent-hover;
+      }
+    }
+  }
+
+  // Chapters Container
+  .chapters-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .chapters-header {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: $text-primary;
+      }
+
+      p {
+        color: $text-secondary;
+        font-size: 1.125rem;
+      }
+    }
+
+    .chapters-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .chapter-item {
+        background: rgba(26, 31, 46, 0.8);
+        border: 1px solid $border-color;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: rgba(59, 130, 246, 0.5);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        &.expanded {
+          border-color: $accent-color;
+        }
+
+        .chapter-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background: rgba(59, 130, 246, 0.1);
+          }
+
+          .chapter-info {
+            .chapter-title {
+              font-size: 1.5rem;
+              font-weight: 600;
+              margin: 0 0 0.25rem 0;
+              color: $text-primary;
+            }
+
+            .verse-count {
+              color: $text-secondary;
+              font-size: 0.875rem;
+            }
+          }
+
+          .expand-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: $accent-color;
+            transition: transform 0.3s ease;
+
+            &.rotated {
+              transform: rotate(180deg);
+            }
+
+            svg {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+
+        .chapter-content {
+          border-top: 1px solid $border-color;
+          background: rgba(10, 14, 26, 0.5);
+
+          .loading-verses {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            color: $text-secondary;
+
+            .small-spinner {
+              width: 1.5rem;
+              height: 1.5rem;
+              border: 2px solid rgba(59, 130, 246, 0.3);
+              border-top: 2px solid $accent-color;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+            }
+          }
+
+          .verses-list {
+            padding: 1rem;
+
+            .verse-item {
+              background: rgba(26, 31, 46, 0.6);
+              border: 1px solid rgba(51, 65, 85, 0.5);
+              border-radius: 0.75rem;
+              padding: 1rem;
+              margin-bottom: 0.75rem;
+              cursor: pointer;
+              transition: all 0.3s ease;
+
+              &:hover {
+                border-color: $accent-color;
+                background: rgba(59, 130, 246, 0.1);
+                transform: translateX(4px);
+              }
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+
+              .verse-header {
+                .verse-number {
+                  display: inline-block;
+                  background: $accent-color;
+                  color: white;
+                  padding: 0.25rem 0.75rem;
+                  border-radius: 1rem;
+                  font-size: 0.75rem;
+                  font-weight: 600;
+                  margin-bottom: 0.5rem;
+                }
+
+                .verse-summary {
+                  display: block;
+                  color: $text-secondary;
+                  font-size: 0.875rem;
+                  line-height: 1.5;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Verse Modal
+  .verse-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+
+    .verse-modal {
+      background: $secondary-bg;
+      border: 1px solid $border-color;
+      border-radius: 1rem;
+      max-width: 800px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid $border-color;
+
+        h3 {
+          margin: 0;
+          color: $text-primary;
+          font-size: 1.5rem;
+        }
+
+        .close-btn {
+          background: none;
+          border: none;
+          color: $text-secondary;
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: $danger-color;
+          }
+
+          svg {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+
+        .verse-section {
+          margin-bottom: 2rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          h4 {
+            color: $accent-color;
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+          }
+
+          .verse-text {
+            color: $text-primary;
+            line-height: 1.7;
+            font-size: 1rem;
+            margin: 0;
+
+            &.hindi {
+              font-family: 'Noto Sans Devanagari', sans-serif;
+              direction: rtl;
+            }
+
+            &.chinese {
+              font-family: 'Noto Sans SC', sans-serif;
+            }
+          }
+
+          .verse-summary {
+            color: $text-secondary;
+            line-height: 1.6;
+            font-size: 0.875rem;
+            margin: 0;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .mahabharatha-container {
+    padding: 1rem;
+
+    .header {
+      .back-btn {
+        position: static;
+        margin-bottom: 1rem;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+    }
+
+    .chapters-container {
+      .chapters-list {
+        .chapter-item {
+          .chapter-header {
+            padding: 1rem;
+          }
+
+          .chapter-content {
+            .verses-list {
+              padding: 0.75rem;
+
+              .verse-item {
+                padding: 0.75rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .verse-modal-overlay {
+      padding: 1rem;
+
+      .verse-modal {
+        max-width: 95%;
+        max-height: 90vh;
+        margin: 1rem;
+
+        .modal-header {
+          padding: 1rem;
+        }
+
+        .modal-content {
+          flex-direction: column;
+
+          .verse-content {
+            border-right: none;
+            border-bottom: 1px solid $border-color;
+            max-height: 50vh;
+            padding: 1rem;
+          }
+
+          .ai-panel-container {
+            width: 100%;
+            height: 50vh;
+          }
+        }
+      }
+    }
+  }
+}

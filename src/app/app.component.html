@@ -1,0 +1,67 @@
+<!-- Router Outlet for routing -->
+<router-outlet></router-outlet>
+
+<!-- Main App Content (only shown on home page) -->
+<div class="app-container" *ngIf="isHomePage">
+  <!-- Navigation Bar -->
+  <app-navbar 
+    [selectedLanguage]="selectedLanguage"
+    [activeTab]="currentPage"
+    (tabChanged)="onTabChanged($event)"
+    (searchPerformed)="onSearchPerformed($event)">
+  </app-navbar>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- World Map View -->
+    <app-worldmap 
+      *ngIf="currentPage === 'worldmap'"
+      [selectedRegion]="selectedRegion"
+      (regionSelected)="onRegionSelected($event)"
+      (regionDeselected)="onRegionDeselected()">
+    </app-worldmap>
+
+    <!-- Profile View -->
+    <div *ngIf="currentPage === 'profile'" class="view-container">
+      <app-profile 
+        [currentLanguage]="selectedLanguage"
+        (languageChanged)="onLanguageChanged($event)">
+      </app-profile>
+    </div>
+
+    <!-- Search Results View (Future Implementation) -->
+    <div *ngIf="currentPage === 'search'" class="view-container">
+      <div class="search-results">
+        <div class="search-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" class="search-icon">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+            <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <h2>Search Results</h2>
+          <p>Search functionality will be implemented here</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (Optional) -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>KathaAI</h4>
+        <p>Bridging cultures through mythological literature</p>
+      </div>
+      <div class="footer-section">
+        <h4>Supported Languages</h4>
+        <p>20+ languages including regional dialects</p>
+      </div>
+      <div class="footer-section">
+        <h4>Sacred Texts</h4>
+        <p>Ramayana • Mahabharata • Norse Edda • Greek Myths</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 KathaAI. Preserving ancient wisdom for modern minds.</p>
+    </div>
+  </footer>
+</div>

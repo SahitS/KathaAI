@@ -1,0 +1,108 @@
+# ---- OS / Editors ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.code-workspace
+
+# ---- Node / Angular ----
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.bazel/
+.bazel-out/
+.angular/cache/
+dist/
+tmp/
+temp/
+out-tsc/
+coverage/
+.storybook-out/
+
+# ---- Python ----
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.python-version
+.mypy_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ---- Build / Artifacts / Binaries ----
+*.dll
+*.lib
+*.so
+*.dylib
+*.exe
+*.bin
+*.dat
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# ---- ML / Data / Checkpoints ----
+checkpoints/
+models/
+artifacts/
+data/
+datasets/
+runs/
+wandb/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+
+# ---- Logs ----
+logs/
+*.log
+
+# ---- Env / Secrets (add sample files instead) ----
+.env
+.env.*
+*.secret
+secrets.json
+firebase-*.json
+serviceAccount*.json
+
+# ---- Misc ----
+.history/
+coverage-final.json
+
+# ---- Python Virtual Envs ----
+.venv/
+venv/
+ENV/
+env/
+
+# ---- Node ----
+node_modules/
+**/node_modules/
+
+# ---- Build/Cache ----
+dist/
+out-tsc/
+coverage/
+.angular/cache/
+__pycache__/
+
+# ---- Logs ----
+*.log
+logs/
+

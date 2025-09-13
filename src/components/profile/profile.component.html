@@ -1,0 +1,334 @@
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="header-content">
+      <div class="profile-info">
+        <div class="avatar-section">
+          <div class="avatar-wrapper">
+            <img [src]="userProfile.avatar" [alt]="userProfile.name" class="avatar-image">
+            <div *ngIf="isEditing" class="avatar-overlay" (click)="fileInput.click()">
+              <svg viewBox="0 0 24 24" fill="none" class="camera-icon">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <input #fileInput type="file" accept="image/*" (change)="uploadAvatar($event)" style="display: none;">
+          </div>
+          <div class="status-badge">Active</div>
+        </div>
+        
+        <div class="user-details">
+          <h1 class="user-name">{{ userProfile.name }}</h1>
+          <p class="user-email">{{ userProfile.email }}</p>
+          <p class="join-date">Member since {{ formatDate(userProfile.joinDate) }}</p>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="edit-btn" (click)="toggleEdit()" [class.active]="isEditing">
+          <svg viewBox="0 0 24 24" fill="none" class="btn-icon">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          {{ isEditing ? 'Save' : 'Edit Profile' }}
+        </button>
+        
+        <button *ngIf="isEditing" class="cancel-btn" (click)="cancelEdit()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Profile Stats -->
+    <div class="profile-stats">
+      <div class="stat-item">
+        <div class="stat-icon">📚</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.booksRead }}</span>
+          <span class="stat-label">Books Read</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.languagesExplored }}</span>
+          <span class="stat-label">Languages</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⏰</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.totalReadingTime }}h</span>
+          <span class="stat-label">Reading Time</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">📈</div>
+        <div class="stat-info">
+          <span class="stat-number">{{ stats.completionRate }}%</span>
+          <span class="stat-label">Completion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Navigation Tabs -->
+    <div class="profile-tabs">
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'account'"
+        (click)="setActiveTab('account')">
+        Account Details
+      </button>
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'language'"
+        (click)="setActiveTab('language')">
+        Language Preferences
+      </button>
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'reading'"
+        (click)="setActiveTab('reading')">
+        Reading Progress
+      </button>
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'settings'"
+        (click)="setActiveTab('settings')">
+        Settings
+      </button>
+    </div>
+
+    <!-- Account Details Tab -->
+    <div *ngIf="activeTab === 'account'" class="tab-content">
+      <div class="section-card">
+        <h3 class="section-title">Personal Information</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input 
+              type="text" 
+              [(ngModel)]="userProfile.name"
+              [readonly]="!isEditing"
+              class="form-input"
+              [class.editable]="isEditing">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input 
+              type="email" 
+              [(ngModel)]="userProfile.email"
+              [readonly]="!isEditing"
+              class="form-input"
+              [class.editable]="isEditing">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Favorite Books</h3>
+        <div class="favorite-books">
+          <div *ngFor="let book of userProfile.favoriteBooks; let i = index" class="book-tag">
+            <span class="book-name">{{ book }}</span>
+            <button *ngIf="isEditing" class="remove-book" (click)="userProfile.favoriteBooks.splice(i, 1)">
+              <svg viewBox="0 0 24 24" fill="none">
+                <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+                <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language Preferences Tab -->
+    <div *ngIf="activeTab === 'language'" class="tab-content">
+      <div class="section-card">
+        <h3 class="section-title">Current Language Preference</h3>
+        <div class="current-language">
+          <div class="language-display-large">
+            <span class="language-flag-large">{{ getActiveLanguage().flag }}</span>
+            <div class="language-info">
+              <span class="language-name-large">{{ getActiveLanguage().name }}</span>
+              <span class="language-native">{{ getActiveLanguage().nativeName }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Available Languages</h3>
+        <p class="section-subtitle">Choose your preferred language for the interface and book translations</p>
+        
+        <div class="language-grid">
+          <div 
+            *ngFor="let language of languages" 
+            class="language-option"
+            [class.selected]="getActiveLanguage().code === language.code"
+            [class.temp-selected]="tempLanguage?.code === language.code"
+            (click)="selectLanguage(language)">
+            <div class="language-flag">{{ language.flag }}</div>
+            <div class="language-details">
+              <span class="language-name">{{ language.name }}</span>
+              <span class="language-native-small">{{ language.nativeName }}</span>
+            </div>
+            <div *ngIf="getActiveLanguage().code === language.code" class="selected-indicator">
+              <svg viewBox="0 0 24 24" fill="none">
+                <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Translation Settings</h3>
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Auto-translate content</span>
+              <span class="setting-description">Automatically translate books to your preferred language</span>
+            </div>
+            <label class="toggle-switch">
+              <input 
+                type="checkbox" 
+                [checked]="userProfile.preferences.autoTranslate"
+                (change)="updatePreference('autoTranslate', $any($event.target).checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reading Progress Tab -->
+    <div *ngIf="activeTab === 'reading'" class="tab-content">
+      <div class="section-card">
+        <h3 class="section-title">Current Reading Progress</h3>
+        <div class="progress-list">
+          <div *ngFor="let book of userProfile.favoriteBooks" class="progress-item">
+            <div class="progress-info">
+              <span class="book-title">{{ book }}</span>
+              <span class="progress-percentage">{{ userProfile.readingProgress[book] || 0 }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill"
+                [class]="getReadingProgressColor(userProfile.readingProgress[book] || 0)"
+                [style.width.%]="userProfile.readingProgress[book] || 0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Reading Statistics</h3>
+        <div class="reading-stats-grid">
+          <div class="reading-stat-card">
+            <div class="stat-icon-large">📖</div>
+            <div class="stat-content">
+              <span class="stat-number-large">{{ stats.booksRead }}</span>
+              <span class="stat-label-large">Books Completed</span>
+            </div>
+          </div>
+          <div class="reading-stat-card">
+            <div class="stat-icon-large">⏱️</div>
+            <div class="stat-content">
+              <span class="stat-number-large">{{ stats.totalReadingTime }}</span>
+              <span class="stat-label-large">Hours Read</span>
+            </div>
+          </div>
+          <div class="reading-stat-card">
+            <div class="stat-icon-large">🎯</div>
+            <div class="stat-content">
+              <span class="stat-number-large">{{ stats.completionRate }}%</span>
+              <span class="stat-label-large">Completion Rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div *ngIf="activeTab === 'settings'" class="tab-content">
+      <div class="section-card">
+        <h3 class="section-title">Display Settings</h3>
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Theme</span>
+              <span class="setting-description">Choose your preferred color scheme</span>
+            </div>
+            <select 
+              class="setting-select"
+              [(ngModel)]="userProfile.preferences.theme"
+              (change)="updatePreference('theme', $any($event.target).value)">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Font Size</span>
+              <span class="setting-description">Adjust text size for comfortable reading</span>
+            </div>
+            <select 
+              class="setting-select"
+              [(ngModel)]="userProfile.preferences.fontSize"
+              (change)="updatePreference('fontSize', $any($event.target).value)">
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3 class="section-title">Notification Settings</h3>
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-info">
+              <span class="setting-name">Push Notifications</span>
+              <span class="setting-description">Receive notifications about new books and updates</span>
+            </div>
+            <label class="toggle-switch">
+              <input 
+                type="checkbox" 
+                [checked]="userProfile.preferences.notifications"
+                (change)="updatePreference('notifications', $any($event.target).checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card danger-zone">
+        <h3 class="section-title danger">Danger Zone</h3>
+        <div class="danger-actions">
+          <button class="export-btn" (click)="exportData()">
+            <svg viewBox="0 0 24 24" fill="none" class="btn-icon">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2"/>
+              <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Export Data
+          </button>
+          
+          <button class="delete-btn" (click)="deleteAccount()">
+            <svg viewBox="0 0 24 24" fill="none" class="btn-icon">
+              <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2"/>
+              <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

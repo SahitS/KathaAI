@@ -1,0 +1,556 @@
+// Color Palette
+$primary-bg: #0a0e1a;
+$secondary-bg: #1a1f2e;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$border-color: #334155;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+
+.profile-container {
+  @apply min-h-screen w-full;
+  background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%);
+  padding: 2rem;
+
+  // Profile Header
+  .profile-header {
+    @apply mb-8;
+
+    .header-content {
+      @apply flex justify-between items-start mb-8 p-6 rounded-2xl;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+
+      .profile-info {
+        @apply flex items-center space-x-6;
+
+        .avatar-section {
+          @apply relative;
+
+          .avatar-wrapper {
+            @apply relative;
+
+            .avatar-image {
+              @apply w-24 h-24 rounded-full object-cover border-4;
+              border-color: $accent-color;
+              box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+            }
+
+            .avatar-overlay {
+              @apply absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center cursor-pointer opacity-0 transition-opacity duration-300;
+
+              &:hover {
+                @apply opacity-100;
+              }
+
+              .camera-icon {
+                @apply w-6 h-6 text-white;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+              }
+            }
+          }
+
+          .status-badge {
+            @apply absolute -bottom-2 -right-2 px-2 py-1 text-xs font-medium rounded-full;
+            background: $success-color;
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+          }
+        }
+
+        .user-details {
+          .user-name {
+            @apply text-3xl font-bold mb-2;
+            background: linear-gradient(135deg, $accent-color, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+
+          .user-email {
+            @apply text-gray-300 text-lg mb-1;
+          }
+
+          .join-date {
+            @apply text-gray-400 text-sm;
+          }
+        }
+      }
+
+      .profile-actions {
+        @apply flex space-x-3;
+
+        .edit-btn {
+          @apply flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300;
+          background: linear-gradient(135deg, $accent-color, #8b5cf6);
+          color: white;
+          border: none;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+          }
+
+          &.active {
+            background: linear-gradient(135deg, $success-color, #059669);
+          }
+
+          .btn-icon {
+            @apply w-5 h-5;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+          }
+        }
+
+        .cancel-btn {
+          @apply px-6 py-3 rounded-xl font-medium transition-all duration-300;
+          background: rgba(239, 68, 68, 0.1);
+          color: $danger-color;
+          border: 1px solid rgba(239, 68, 68, 0.3);
+
+          &:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+
+    .profile-stats {
+      @apply flex justify-center space-x-8;
+
+      .stat-item {
+        @apply flex items-center space-x-4 p-6 rounded-xl;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: $accent-color;
+          box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-icon {
+          @apply text-3xl;
+        }
+
+        .stat-info {
+          .stat-number {
+            @apply block text-2xl font-bold text-white;
+          }
+
+          .stat-label {
+            @apply text-sm text-gray-400;
+          }
+        }
+      }
+    }
+  }
+
+  // Profile Content
+  .profile-content {
+    @apply max-w-6xl mx-auto;
+
+    .profile-tabs {
+      @apply flex space-x-2 mb-8 p-2 rounded-xl;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      .tab-btn {
+        @apply flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-300;
+        color: $text-secondary;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: $text-primary;
+        }
+
+        &.active {
+          background: linear-gradient(135deg, $accent-color, #8b5cf6);
+          color: white;
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+      }
+    }
+
+    .tab-content {
+      @apply space-y-6;
+
+      .section-card {
+        @apply p-6 rounded-xl;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+
+        &.danger-zone {
+          border-color: rgba(239, 68, 68, 0.3);
+          background: rgba(239, 68, 68, 0.05);
+        }
+
+        .section-title {
+          @apply text-xl font-bold text-white mb-2;
+
+          &.danger {
+            color: $danger-color;
+          }
+        }
+
+        .section-subtitle {
+          @apply text-gray-400 mb-6;
+        }
+
+        // Form Elements
+        .form-grid {
+          @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+        }
+
+        .form-group {
+          .form-label {
+            @apply block text-sm font-medium text-gray-300 mb-2;
+          }
+
+          .form-input {
+            @apply w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white transition-all duration-300;
+
+            &:focus {
+              outline: none;
+              border-color: $accent-color;
+              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            &.editable {
+              background: rgba(255, 255, 255, 0.05);
+              border-color: $accent-color;
+            }
+
+            &[readonly] {
+              cursor: default;
+              opacity: 0.7;
+            }
+          }
+        }
+
+        // Favorite Books
+        .favorite-books {
+          @apply flex flex-wrap gap-3;
+
+          .book-tag {
+            @apply flex items-center space-x-2 px-4 py-2 rounded-full;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+
+            .book-name {
+              @apply text-blue-300 font-medium;
+            }
+
+            .remove-book {
+              @apply w-5 h-5 flex items-center justify-center rounded-full;
+              background: rgba(239, 68, 68, 0.1);
+              color: $danger-color;
+
+              &:hover {
+                background: rgba(239, 68, 68, 0.2);
+              }
+
+              svg {
+                @apply w-3 h-3;
+                stroke: currentColor;
+                stroke-width: 2;
+              }
+            }
+          }
+        }
+
+        // Language Settings
+        .current-language {
+          @apply mb-8;
+
+          .language-display-large {
+            @apply flex items-center space-x-6 p-6 rounded-xl;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+
+            .language-flag-large {
+              @apply text-4xl;
+            }
+
+            .language-info {
+              .language-name-large {
+                @apply block text-2xl font-bold text-white;
+              }
+
+              .language-native {
+                @apply text-blue-300 text-lg;
+              }
+            }
+          }
+        }
+
+        .language-grid {
+          @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+
+          .language-option {
+            @apply flex items-center space-x-3 p-4 rounded-lg cursor-pointer transition-all duration-300;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.08);
+              border-color: rgba(59, 130, 246, 0.3);
+              transform: translateY(-2px);
+            }
+
+            &.selected, &.temp-selected {
+              background: rgba(59, 130, 246, 0.1);
+              border-color: $accent-color;
+              box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+            }
+
+            .language-flag {
+              @apply text-2xl;
+            }
+
+            .language-details {
+              @apply flex-1;
+
+              .language-name {
+                @apply block font-medium text-white;
+              }
+
+              .language-native-small {
+                @apply text-sm text-gray-400;
+              }
+            }
+
+            .selected-indicator {
+              @apply w-6 h-6 flex items-center justify-center rounded-full;
+              background: $success-color;
+              color: white;
+
+              svg {
+                @apply w-4 h-4;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+              }
+            }
+          }
+        }
+
+        // Reading Progress
+        .progress-list {
+          @apply space-y-4;
+
+          .progress-item {
+            @apply p-4 rounded-lg;
+            background: rgba(255, 255, 255, 0.03);
+
+            .progress-info {
+              @apply flex justify-between items-center mb-3;
+
+              .book-title {
+                @apply font-medium text-white;
+              }
+
+              .progress-percentage {
+                @apply text-sm text-gray-400;
+              }
+            }
+
+            .progress-bar {
+              @apply w-full h-2 bg-gray-700 rounded-full overflow-hidden;
+
+              .progress-fill {
+                @apply h-full transition-all duration-500 rounded-full;
+              }
+            }
+          }
+        }
+
+        .reading-stats-grid {
+          @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+
+          .reading-stat-card {
+            @apply flex items-center space-x-4 p-6 rounded-lg;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            .stat-icon-large {
+              @apply text-3xl;
+            }
+
+            .stat-content {
+              .stat-number-large {
+                @apply block text-2xl font-bold text-white;
+              }
+
+              .stat-label-large {
+                @apply text-gray-400;
+              }
+            }
+          }
+        }
+
+        // Settings
+        .settings-group {
+          @apply space-y-6;
+
+          .setting-item {
+            @apply flex justify-between items-center p-4 rounded-lg;
+            background: rgba(255, 255, 255, 0.03);
+
+            .setting-info {
+              .setting-name {
+                @apply block font-medium text-white mb-1;
+              }
+
+              .setting-description {
+                @apply text-sm text-gray-400;
+              }
+            }
+
+            .setting-select {
+              @apply px-3 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white;
+
+              &:focus {
+                outline: none;
+                border-color: $accent-color;
+              }
+            }
+
+            .toggle-switch {
+              @apply relative inline-block w-12 h-6;
+
+              input {
+                @apply opacity-0 w-0 h-0;
+
+                &:checked + .slider {
+                  background-color: $accent-color;
+
+                  &:before {
+                    transform: translateX(24px);
+                  }
+                }
+              }
+
+              .slider {
+                @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-600 rounded-full transition-all duration-300;
+
+                &:before {
+                  @apply absolute content-[''] h-5 w-5 left-0.5 bottom-0.5 bg-white rounded-full transition-all duration-300;
+                }
+              }
+            }
+          }
+        }
+
+        // Danger Zone
+        .danger-actions {
+          @apply flex space-x-4;
+
+          .export-btn {
+            @apply flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-300;
+            background: rgba(245, 158, 11, 0.1);
+            color: $warning-color;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+
+            &:hover {
+              background: rgba(245, 158, 11, 0.2);
+              transform: translateY(-2px);
+            }
+
+            .btn-icon {
+              @apply w-5 h-5;
+              stroke: currentColor;
+              stroke-width: 2;
+              fill: none;
+            }
+          }
+
+          .delete-btn {
+            @apply flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-300;
+            background: rgba(239, 68, 68, 0.1);
+            color: $danger-color;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+
+            &:hover {
+              background: rgba(239, 68, 68, 0.2);
+              transform: translateY(-2px);
+            }
+
+            .btn-icon {
+              @apply w-5 h-5;
+              stroke: currentColor;
+              stroke-width: 2;
+              fill: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .profile-container {
+    @apply px-4;
+
+    .profile-header {
+      .header-content {
+        @apply flex-col space-y-6;
+      }
+
+      .profile-stats {
+        @apply grid grid-cols-2 gap-4 space-x-0;
+      }
+    }
+
+    .profile-content {
+      .profile-tabs {
+        @apply grid grid-cols-2 gap-2 space-x-0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    @apply px-2 py-4;
+
+    .profile-header {
+      .profile-stats {
+        @apply grid-cols-1;
+      }
+    }
+
+    .profile-content {
+      .profile-tabs {
+        @apply grid-cols-1;
+      }
+
+      .tab-content .section-card {
+        .language-grid {
+          @apply grid-cols-1;
+        }
+
+        .reading-stats-grid {
+          @apply grid-cols-1;
+        }
+
+        .danger-actions {
+          @apply flex-col space-y-4 space-x-0;
+        }
+      }
+    }
+  }
+}

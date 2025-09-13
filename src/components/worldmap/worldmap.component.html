@@ -1,0 +1,77 @@
+<div class="worldmap-container">
+  <!-- Loading Overlay -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <h3 class="loading-text">Loading World Map...</h3>
+      <p class="loading-subtitle">Discovering mythological treasures across the globe</p>
+    </div>
+  </div>
+
+  <!-- Map Header -->
+  <div class="map-header" [class.hidden]="isLoading">
+    <div class="header-content">
+      <h1 class="map-title">Mythological Heritage Across the World</h1>
+      <p class="map-subtitle">Explore sacred texts and legendary tales from different cultures</p>
+      
+      <!-- Map Statistics -->
+      <div class="map-stats">
+        <div class="stat-card">
+          <div class="stat-number">{{ mapStats.totalBooks }}</div>
+          <div class="stat-label">Sacred Texts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ mapStats.totalCountries }}</div>
+          <div class="stat-label">Countries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ mapStats.totalLanguages }}</div>
+          <div class="stat-label">Languages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive World Map -->
+  <div class="map-section" [class.hidden]="isLoading" #mapContainer>
+    <div class="world-map-container">
+      <object 
+        data="world.svg"
+        type="image/svg+xml"
+        class="world-map"
+        (load)="onSvgLoaded()"
+        (error)="onSvgError()">
+      </object>
+    </div>
+    
+    <!-- Interactive Legend -->
+    <div class="map-legend">
+      <h4 class="legend-title">Legend</h4>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-color has-data"></div>
+          <span>Countries with mythological texts</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color hovered"></div>
+          <span>Hovered country</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color selected"></div>
+          <span>Selected country</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Country Information Overlay - Move outside map-section so it's not affected by isLoading -->
+  <app-overlay
+    *ngIf="selectedRegion"
+    [countryData]="getCountryData(selectedRegion)"
+    [isSelected]="true"
+    [isHovered]="false"
+    (closeOverlay)="onCloseOverlay()"
+    (showAllMythologies)="onShowAllMythologies($event)"
+    class="country-overlay">
+  </app-overlay>
+</div>

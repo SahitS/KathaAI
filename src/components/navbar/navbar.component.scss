@@ -1,0 +1,304 @@
+// Color Palette
+$primary-bg: #0a0e1a;
+$secondary-bg: #1a1f2e;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$border-color: #334155;
+$hover-bg: #334155;
+$active-bg: #475569;
+
+.navbar-container {
+  width: 100%;
+  background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%);
+  border-bottom: 1px solid #374151;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  .navbar-content {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+
+    .company-section {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .company-logo {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        background: linear-gradient(135deg, $accent-color, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+
+        .logo-icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: white;
+        }
+      }
+
+      .company-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        background: linear-gradient(to right, #60a5fa, #a78bfa);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-family: 'Inter', sans-serif;
+      }
+    }
+
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      .nav-tab {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        color: $text-secondary;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid transparent;
+
+        &:hover {
+          background: rgba(59, 130, 246, 0.1);
+          border-color: rgba(59, 130, 246, 0.3);
+          color: $text-primary;
+          transform: translateY(-1px);
+        }
+
+        &.active {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+          border-color: $accent-color;
+          color: $text-primary;
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .tab-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+
+        span {
+          font-weight: 500;
+          font-size: 0.875rem;
+        }
+      }
+
+      .search-section {
+        position: relative;
+
+        .search-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(59, 130, 246, 0.3);
+          }
+
+          .search-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-left: 0.75rem;
+            color: #9ca3af;
+            transition: color 0.3s ease;
+          }
+
+          .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0.5rem 0.75rem;
+            color: #f3f4f6;
+            width: 280px;
+            font-size: 14px;
+
+            &::placeholder {
+              color: $text-secondary;
+            }
+          }
+
+          .clear-search {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: rgba(239, 68, 68, 0.2);
+              transform: scale(1.1);
+            }
+
+            svg {
+              width: 1rem;
+              height: 1rem;
+            }
+          }
+        }
+
+        &.focused .search-container {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: $accent-color;
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+
+          .search-icon {
+            color: $accent-color;
+          }
+        }
+      }
+    }
+
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .language-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .language-flag {
+          font-size: 1.125rem;
+        }
+
+        .language-name {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #e5e7eb;
+        }
+      }
+
+      .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: $text-secondary;
+
+        &:hover {
+          background: rgba(59, 130, 246, 0.1);
+          border-color: rgba(59, 130, 246, 0.3);
+          color: $text-primary;
+          transform: translateY(-1px);
+        }
+
+        &.active {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+          border-color: $accent-color;
+          color: $text-primary;
+          box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .profile-avatar {
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #8b5cf6, #ec4899);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+
+          .profile-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: white;
+          }
+        }
+
+        .profile-text {
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .navbar-container {
+    .navbar-content {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1rem 0;
+
+      .nav-tabs {
+        width: 100%;
+        justify-content: center;
+
+        .search-section .search-container .search-input {
+          width: 200px;
+        }
+      }
+
+      .right-section {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-container {
+    .navbar-content {
+      .company-section {
+        .company-name {
+          display: none;
+        }
+      }
+
+      .nav-tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+        row-gap: 0.5rem;
+        column-gap: 0;
+
+        .search-section .search-container .search-input {
+          width: 250px;
+        }
+      }
+    }
+  }
+}

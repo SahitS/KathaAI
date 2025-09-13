@@ -1,0 +1,137 @@
+<div class="mahabharatha-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" class="back-icon">
+        <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Map
+    </button>
+    <h1 class="title">Mahabharatha</h1>
+    <p class="subtitle">Sacred Epic of Ancient India</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading Mahabharatha content...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <p>{{ error }}</p>
+    <button class="retry-btn" (click)="loadMahabharathaData()">Retry</button>
+  </div>
+
+  <!-- Chapters List -->
+  <div *ngIf="!isLoading && !error" class="chapters-container">
+    <div class="chapters-header">
+      <h2>Chapters</h2>
+      <p>Click on a chapter to expand and view verses</p>
+    </div>
+
+    <div class="chapters-list">
+      <div 
+        *ngFor="let chapter of chapters" 
+        class="chapter-item"
+        [class.expanded]="chapter.isExpanded">
+        
+        <!-- Chapter Header -->
+        <div class="chapter-header" (click)="toggleChapter(chapter)">
+          <div class="chapter-info">
+            <h3 class="chapter-title">{{ chapter.title }}</h3>
+            <span class="verse-count">{{ chapter.verseCount }} verses</span>
+          </div>
+          <div class="expand-icon" [class.rotated]="chapter.isExpanded">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Chapter Content -->
+        <div *ngIf="chapter.isExpanded" class="chapter-content">
+          <div *ngIf="chapter.verses.length === 0" class="loading-verses">
+            <div class="small-spinner"></div>
+            <span>Loading verses...</span>
+          </div>
+          
+          <div *ngIf="chapter.verses.length > 0" class="verses-list">
+            <div 
+              *ngFor="let verse of chapter.verses" 
+              class="verse-item"
+              (click)="selectVerse(verse)">
+              <div class="verse-header">
+                <span class="verse-number">Verse {{ verse.Verse_id }}</span>
+                <span class="verse-summary">{{ verse.Summary || 'Click to read full verse' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verse Detail Modal -->
+  <div *ngIf="selectedVerse" class="verse-modal-overlay" (click)="closeVerseDetail()">
+    <div class="verse-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Verse {{ selectedVerse.Verse_id }}</h3>
+        <button class="close-btn" (click)="closeVerseDetail()">
+          <svg viewBox="0 0 24 24" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-content">
+        <!-- English Content -->
+        <div class="verse-section">
+          <h4>English Translation</h4>
+          <p class="verse-text">{{ selectedVerse.Content_eng }}</p>
+        </div>
+
+        <!-- Hindi Content -->
+        <div class="verse-section">
+          <h4>हिन्दी अनुवाद</h4>
+          <p class="verse-text hindi">{{ selectedVerse.Content_hin }}</p>
+        </div>
+
+        <!-- Chinese Content -->
+        <div class="verse-section">
+          <h4>中文翻译</h4>
+          <p class="verse-text chinese">{{ selectedVerse.Content_chi }}</p>
+        </div>
+
+        <!-- Summary -->
+        <div *ngIf="selectedVerse.Summary" class="verse-section">
+          <h4>Summary</h4>
+          <p class="verse-summary">{{ selectedVerse.Summary }}</p>
+        </div>
+
+        <!-- AI Help Button -->
+        <div class="ai-help-section">
+          <button class="ai-help-btn" (click)="openAiHelp()">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="17" r="1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            AI Help
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Help Panel Overlay -->
+  <div *ngIf="showAiHelp" class="ai-help-overlay" (click)="closeAiHelp()">
+    <div class="ai-help-container" (click)="$event.stopPropagation()">
+      <app-ai-panel 
+        [selectedVerse]="selectedVerse"
+        (closePanel)="closeAiHelp()">
+      </app-ai-panel>
+    </div>
+  </div>
+</div>

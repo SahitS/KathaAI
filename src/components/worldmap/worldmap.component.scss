@@ -1,0 +1,519 @@
+// Color Palette
+$primary-bg: #0a0e1a;
+$secondary-bg: #1a1f2e;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
+$text-primary: #f1f5f9;
+$text-secondary: #94a3b8;
+$border-color: #334155;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+
+.worldmap-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%);
+  overflow-x: hidden;
+  padding-top: 6rem; /* Account for fixed navbar */
+
+  // Loading Overlay
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%);
+    backdrop-filter: blur(10px);
+
+    .loading-content {
+      text-align: center;
+
+      .loading-spinner {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 1.5rem auto;
+        border: 4px solid #4b5563;
+        border-top-color: #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, $accent-color, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .loading-subtitle {
+        color: #9ca3af;
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  // Map Header
+  .map-header {
+    padding: 2rem 1.5rem;
+    transition: all 0.5s ease;
+
+    &.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .header-content {
+      max-width: 100%;
+      margin: 0 auto;
+      text-align: center;
+
+      .map-title {
+        font-size: 2.25rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, $accent-color, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .map-subtitle {
+        font-size: 1.25rem;
+        color: #d1d5db;
+        margin-bottom: 2rem;
+      }
+
+      .map-stats {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+
+        .stat-card {
+          text-align: center;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: $accent-color;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+          }
+
+          .stat-number {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+          }
+
+          .stat-label {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  // Map Section
+  .map-section {
+    padding: 0 1.5rem 2rem 1.5rem;
+    transition: all 0.5s ease;
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    .world-map-container {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 100%); // Same as background
+      border-radius: 15px;
+      overflow: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      z-index: 1;
+      margin: 0 auto; // Center the container
+      
+      // Set a fixed height for the scrollable container
+      height: 70vh;
+      min-height: 600px;
+      max-height: 80vh;
+      
+      // Enable smooth scrolling
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      
+      // Add padding to increase scroll area
+      padding: 50px;
+      
+      // Force scrollbars to always be visible
+      overflow-x: scroll;
+      overflow-y: scroll;
+        
+        // Custom scrollbar styling - make them more visible
+        &::-webkit-scrollbar {
+          width: 16px;
+          height: 16px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, $accent-color, #8b5cf6);
+          border-radius: 8px;
+          border: 2px solid rgba(0, 0, 0, 0.3);
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          
+          &:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+          }
+        }
+        
+        &::-webkit-scrollbar-corner {
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        // Firefox scrollbar styling
+        scrollbar-width: thin;
+        scrollbar-color: $accent-color rgba(0, 0, 0, 0.2);
+        
+        .world-map {
+          width: 100%;
+          height: 100%;
+          min-width: 200%;
+          min-height: 200%;
+          object-fit: contain;
+          object-position: center center;
+          filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.3));
+          transition: filter 0.2s ease-out;
+          display: block;
+          margin: 0 auto; // Center the map
+          
+          // Scale to make map larger but still scrollable
+          transform: scale(1.2);
+          transform-origin: center center;
+          
+          // Enable hardware acceleration
+          will-change: filter;
+          backface-visibility: hidden;
+          transform-style: preserve-3d;
+          
+          &:hover {
+            filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.4));
+          }
+        }
+        
+        // Scroll indicator
+        &::after {
+          content: "🖱️ Use mouse wheel or scrollbars to explore";
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: rgba(0, 0, 0, 0.9);
+          color: white;
+          padding: 0.75rem 1.25rem;
+          border-radius: 25px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          z-index: 10;
+          animation: fadeInOut 4s ease-in-out infinite;
+          pointer-events: none;
+          border: 1px solid rgba(59, 130, 246, 0.3);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+    .map-legend {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      z-index: 10;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.9);
+        border-color: rgba(59, 130, 246, 0.5);
+        transform: translateY(-2px);
+      }
+
+        .legend-title {
+          color: white;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+          background: linear-gradient(135deg, $accent-color, #8b5cf6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .legend-items {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+
+          .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: translateX(5px);
+            }
+
+            .legend-color {
+              width: 1.25rem;
+              height: 1.25rem;
+              border-radius: 0.375rem;
+              border: 2px solid;
+              transition: all 0.3s ease;
+
+              &.has-data {
+                background: rgba(59, 130, 246, 0.4);
+                border-color: rgba(59, 130, 246, 0.8);
+                box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+              }
+
+              &.hovered {
+                background: rgba(59, 130, 246, 0.7);
+                border-color: $accent-color;
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+                transform: scale(1.1);
+              }
+
+              &.selected {
+                background: rgba(16, 185, 129, 0.6);
+                border-color: $success-color;
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+                animation: pulse-legend 2s infinite;
+              }
+            }
+
+            span {
+              color: #e5e7eb;
+              font-size: 0.875rem;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Country Overlay Positioning
+  .country-overlay {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    z-index: 1000;
+    pointer-events: all;
+    animation: slideInRight 0.3s ease-out;
+    
+    // Ensure overlay is visible and positioned correctly
+    max-width: 400px;
+    min-width: 320px;
+    
+    // Responsive positioning
+    @media (max-width: 1200px) {
+      right: 1.5rem;
+      max-width: 350px;
+      min-width: 300px;
+    }
+    
+    @media (max-width: 1024px) {
+      right: 1rem;
+      top: 55%;
+      max-width: 320px;
+      min-width: 280px;
+    }
+    
+    @media (max-width: 768px) {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
+      max-width: 90vw;
+      min-width: 280px;
+      z-index: 1001;
+      animation: slideInUp 0.3s ease-out;
+    }
+    
+    @media (max-width: 480px) {
+      max-width: 95vw;
+      min-width: 260px;
+      top: 45%;
+    }
+  }
+
+// Animations
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%) translateY(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateY(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-selected {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+}
+
+@keyframes pulse-legend {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .worldmap-container {
+    .map-header .header-content .map-stats {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .map-section {
+      .world-map-container {
+        height: 50vh;
+        min-height: 400px;
+        max-height: 60vh;
+        
+        .world-map {
+          width: 100%;
+          height: 100%;
+          min-width: 200%;
+          min-height: 200%;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .worldmap-container {
+    .map-header .header-content {
+      .map-title {
+        font-size: 1.875rem;
+      }
+
+      .map-subtitle {
+        font-size: 1.125rem;
+      }
+    }
+    
+    .map-section .world-map-container {
+      height: 60vh;
+      min-height: 400px;
+      max-height: 70vh;
+      padding: 15px;
+      
+      .world-map {
+        width: 100%;
+        height: 100%;
+        min-width: 200%;
+        min-height: 200%;
+        transform: scale(1.0);
+      }
+    }
+    
+    .map-legend {
+      bottom: 1rem;
+      left: 1rem;
+      padding: 1rem;
+      
+      .legend-title {
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .legend-items {
+        gap: 0.5rem;
+        
+        .legend-item {
+          .legend-color {
+            width: 1rem;
+            height: 1rem;
+          }
+          
+          span {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}

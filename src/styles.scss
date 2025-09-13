@@ -1,0 +1,12 @@
+/* 1) Tailwind base (preflight) – you can disable via corePlugins.preflight=false if it clashes */
+@tailwind base;
+
+/* 2) Bootstrap (SCSS source so you can customize it if needed) */
+@import "bootstrap/scss/bootstrap";
+
+/* 3) Tailwind layers – utilities last so they override when classes collide */
+@tailwind components;
+@tailwind utilities;
+
+/* Optional small tweaks: make Bootstrap use your app font (example) */
+// :root { --bs-body-font-family: inherit; }
